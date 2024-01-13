@@ -33,9 +33,12 @@ test_span()
     OIIO_CHECK_EQUAL(&a.back(), &a[a.size() - 1]);
 
     OIIO_CHECK_EQUAL(a.begin(), &a[0]);
-    OIIO_CHECK_EQUAL(a.end(), &a[a.size()]);
+    OIIO_CHECK_EQUAL(a.begin(), a.data());
+    OIIO_CHECK_EQUAL(a.end(), a.data() + a.size());
+    OIIO_CHECK_EQUAL(a.end(), &a[a.size() - 1] + 1);
     OIIO_CHECK_EQUAL(a.cbegin(), &a[0]);
-    OIIO_CHECK_EQUAL(a.cend(), &a[a.size()]);
+    OIIO_CHECK_EQUAL(a.end(), a.data() + a.size());
+    OIIO_CHECK_EQUAL(a.cend(), &a[a.size() - 1] + 1);
 
     span<float>::const_iterator i = a.begin();
     OIIO_CHECK_EQUAL(*i, 0.0f);

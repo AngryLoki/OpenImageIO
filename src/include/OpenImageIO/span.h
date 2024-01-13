@@ -189,8 +189,14 @@ public:
 
     constexpr pointer data() const noexcept { return m_data; }
 
-    constexpr reference operator[] (size_type idx) const { return m_data[idx]; }
-    constexpr reference operator() (size_type idx) const { return m_data[idx]; }
+    constexpr reference operator[] (size_type idx) const {
+        OIIO_DASSERT(idx < m_size && "OIIO::span::operator[] range check");
+        return m_data[idx];
+    }
+    constexpr reference operator() (size_type idx) const {
+        OIIO_DASSERT(idx < m_size && "OIIO::span::operator() range check");
+        return m_data[idx];
+    }
     reference at (size_type idx) const {
         if (idx >= size())
             throw (std::out_of_range ("OpenImageIO::span::at"));
