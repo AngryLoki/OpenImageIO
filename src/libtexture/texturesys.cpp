@@ -1350,8 +1350,10 @@ TextureSystemImpl::texture(TextureHandle* texture_handle,
 
     bool ok          = true;
     Tex::RunMask bit = 1;
+    float* r         = OIIO_ALLOCA(float, 3 * nchannels);
+    float* drds      = r + nchannels;
+    float* drdt      = drds + nchannels;
     for (int i = 0; i < Tex::BatchWidth; ++i, bit <<= 1) {
-        float r[4], drds[4], drdt[4];  // temp result
         if (mask & bit) {
             opt.sblur  = options.sblur[i];
             opt.tblur  = options.tblur[i];
